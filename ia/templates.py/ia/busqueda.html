@@ -1,0 +1,22 @@
+{% extends "ia/base.html" %}
+
+{% block title %}Resultados de búsqueda{% endblock %}
+
+{% block content %}
+<h2>Resultados de búsqueda para: "{{ consulta }}"</h2>
+
+{% if resultados %}
+  <ul>
+    {% for ia in resultados %}
+      <li>
+        <h3>{{ ia.nombre }}</h3>
+        <p>{{ ia.descripcion|truncatewords:20 }}</p>
+        <a href="#">Ver más</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No se encontraron resultados.</p>
+{% endif %}
+
+{% endblock %}

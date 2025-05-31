@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}IA Explorer{% endblock %}</title>
+</head>
+<body>
+    {% include "ia/navbar.html" %}
+
+    <div>
+        {% block content %}
+        <!-- El contenido de cada página va aquí -->
+        {% endblock %}
+    </div>
+</body>
+</html>

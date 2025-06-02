@@ -3,12 +3,12 @@
     
     <!-- Inicio -->
     <li>
-      <a href="{% url 'inicio' %}" style="color: white; text-decoration: none;">Inicio</a>
+      <a href="{% url 'ia:inicio' %}" style="color: white; text-decoration: none;">Inicio</a>
     </li>
 
     <!-- Formulario de búsqueda -->
     <li>
-      <form method="GET" action="{% url 'busqueda' %}" style="display: flex; align-items: center; gap: 5px;">
+      <form method="GET" action="{% url 'ia:busqueda' %}" style="display: flex; align-items: center; gap: 5px;">
         <input type="text" name="q" placeholder="Buscar IAs..." style="padding: 5px;">
         <button type="submit" style="padding: 5px;">Buscar</button>
       </form>
@@ -18,12 +18,12 @@
     <li style="position: relative;">
       <span style="color: white; cursor: pointer;">Categorías IA ▼</span>
       <ul style="position: absolute; top: 30px; left: 0; background-color: #34495e; padding: 10px; list-style: none; display: none;" id="submenu">
-        <li><a href="{% url 'categoria_ia' 'texto' %}" style="color: white; text-decoration: none;">Texto</a></li>
-        <li><a href="{% url 'categoria_ia' 'ppt' %}" style="color: white; text-decoration: none;">PPT</a></li>
-        <li><a href="{% url 'categoria_ia' 'matematicas' %}" style="color: white; text-decoration: none;">Matemáticas</a></li>
-        <li><a href="{% url 'categoria_ia' 'programacion' %}" style="color: white; text-decoration: none;">Programación</a></li>
-        <li><a href="{% url 'categoria_ia' 'imagenes' %}" style="color: white; text-decoration: none;">Imágenes</a></li>
-        <li><a href="{% url 'categoria_ia' 'mapas-mentales' %}" style="color: white; text-decoration: none;">Mapas mentales</a></li>
+        <li><a href="{% url 'ia:texto' %}" style="color: white; text-decoration: none;">Texto</a></li>
+        <li><a href="{% url 'ia:ppt' %}" style="color: white; text-decoration: none;">PPT</a></li>
+        <li><a href="{% url 'ia:matematicas' %}" style="color: white; text-decoration: none;">Matemáticas</a></li>
+        <li><a href="{% url 'ia:programacion' %}" style="color: white; text-decoration: none;">Programación</a></li>
+        <li><a href="{% url 'ia:imagenes' %}" style="color: white; text-decoration: none;">Imágenes</a></li>
+        <li><a href="{% url 'ia:mapas-mentales' %}" style="color: white; text-decoration: none;">Mapas mentales</a></li>
       </ul>
     </li>
   </ul>

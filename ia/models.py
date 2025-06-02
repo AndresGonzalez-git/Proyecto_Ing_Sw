@@ -9,9 +9,6 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nombre
 
-
-
-
 # Modelos de IA específicos
 class InteligenciaArtificial(models.Model):
     nombre = models.CharField(max_length=100)

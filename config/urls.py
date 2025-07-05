@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView  # Para la vista de inicio
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('herramientas/', include('herramientas.urls')),
+    # Ruta para la página de inicio
+    path('', TemplateView.as_view(template_name='herramientas/inicio.html'), name='inicio'),
 ]

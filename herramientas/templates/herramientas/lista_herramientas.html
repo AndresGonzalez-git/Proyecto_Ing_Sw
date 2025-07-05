@@ -4,13 +4,34 @@
 
 {% block contenido %}
     <h1 class="mb-4">Herramientas de IA</h1>
+    <!-- HU02: Filtros de categoría -->
+    <form method="get" class="mb-4">
+        <div class="row g-2 align-items-center">
+            <div class="col-auto fw-bold">Filtrar por categoría:</div>
+            {% for valor, nombre in categorias_disponibles %}
+                <div class="col-auto form-check">
+                    <input class="form-check-input" type="checkbox" name="categoria" id="cat_{{ valor }}" value="{{ valor }}" {% if valor in categorias_seleccionadas %}checked{% endif %} {% if categorias_seleccionadas|length >= 5 and valor not in categorias_seleccionadas %}disabled{% endif %}>
+                    <label class="form-check-label" for="cat_{{ valor }}">{{ nombre }}</label>
+                </div>
+            {% endfor %}
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary btn-sm">Aplicar filtros</button>
+                <a href="?" class="btn btn-secondary btn-sm">Limpiar</a>
+            </div>
+        </div>
+        <!-- HU02: Mensaje si se seleccionan 5 categorías -->
+        {% if categorias_seleccionadas|length >= 5 %}
+            <div class="text-danger mt-2">Solo puedes seleccionar hasta 5 categorías.</div>
+        {% endif %}
+    </form>
+
     <div class="row row-cols-1 row-cols-md-2 g-4">
         {% for herramienta in herramientas %}
             <div class="col">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">{{ herramienta.nombre }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Categoría: {{ herramienta.categoria }}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Categoría: {{ herramienta.get_categoria_display }}</h6>
                         <div class="mb-2">
                             <strong>Descripción:</strong>
                             <p class="mb-1">{{ herramienta.descripcion }}</p>
@@ -33,4 +54,33 @@
             <p>No hay herramientas registradas.</p>
         {% endfor %}
     </div>
+
+    <!-- HU02: Controles de paginación -->
+    {% if page_obj.has_other_pages %}
+        <nav aria-label="Paginación de herramientas" class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?{% for cat in categorias_seleccionadas %}categoria={{ cat }}&{% endfor %}page={{ page_obj.previous_page_number }}">Anterior</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+                {% endif %}
+                {% for num in paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?{% for cat in categorias_seleccionadas %}categoria={{ cat }}&{% endfor %}page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?{% for cat in categorias_seleccionadas %}categoria={{ cat }}&{% endfor %}page={{ page_obj.next_page_number }}">Siguiente</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
 {% endblock %} 

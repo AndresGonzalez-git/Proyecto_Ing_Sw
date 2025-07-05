@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block titulo %}Lista de Herramientas IA{% endblock %}
+
+{% block contenido %}
+    <h1 class="mb-4">Herramientas de IA</h1>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for herramienta in herramientas %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ herramienta.nombre }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Categoría: {{ herramienta.categoria }}</h6>
+                        <div class="mb-2">
+                            <strong>Descripción:</strong>
+                            <p class="mb-1">{{ herramienta.descripcion }}</p>
+                        </div>
+                        <div class="mb-2">
+                            <strong>Diferencias:</strong>
+                            <p class="mb-1">{{ herramienta.diferencias }}</p>
+                        </div>
+                        <div>
+                            <strong>Ejemplos:</strong>
+                            <p class="mb-1" style="white-space: pre-line;">{{ herramienta.ejemplos }}</p>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <a href="{% url 'ficha_herramienta' herramienta.id %}" class="btn btn-primary btn-sm">Ver ficha completa</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No hay herramientas registradas.</p>
+        {% endfor %}
+    </div>
+{% endblock %} 

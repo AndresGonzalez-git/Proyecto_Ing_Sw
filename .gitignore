@@ -3,8 +3,6 @@
 __pycache__/
 *.pyc
 
-# Ignorar archivos de base de datos local
-db.sqlite3
 
 # Ignorar archivos de entorno
 .env

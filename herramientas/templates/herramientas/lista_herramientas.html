@@ -4,6 +4,7 @@
 
 {% block contenido %}
     <h1 class="mb-4">Herramientas de IA</h1>
+    
     <!-- HU02: Filtros de categoría -->
     <form method="get" class="mb-4">
         <div class="row g-2 align-items-center">
@@ -15,8 +16,7 @@
                 </div>
             {% endfor %}
             <div class="col-auto">
-                <button type="submit" class="btn btn-primary btn-sm">Aplicar filtros</button>
-                <a href="?" class="btn btn-secondary btn-sm">Limpiar</a>
+                <button type="submit" class="btn btn-primary btn-sm">Aplicar filtros de categoría</button>
             </div>
         </div>
         <!-- HU02: Mensaje si se seleccionan 5 categorías -->
@@ -25,30 +25,32 @@
         {% endif %}
     </form>
 
-
-     <!--HU02: Filtros de Nivel Educativo
+    <!-- HU11: Filtros de nivel educativo -->
     <form method="get" class="mb-4">
         <div class="row g-2 align-items-center">
-            <div class="col-auto fw-bold">Filtrar por Nivel:</div>
-            {% for valor2, nombre2 in categorias_disponibles2 %}
+            <div class="col-auto fw-bold">Filtrar por nivel educativo:</div>
+            {% for valor, nombre in niveles_disponibles %}
                 <div class="col-auto form-check">
-                    <input class="form-check-input" type="checkbox" name="categoria2" id="cat_{{ valor2 }}" value="{{ valor2 }}" {% if valor in categorias_seleccionadas2 %}checked{% endif %} {% if categorias_seleccionadas2|length >= 5 and valor2 not in categorias_seleccionadas2 %}disabled{% endif %}>
-                    <label class="form-check-label" for="cat_{{ valor2 }}">{{ nombre2 }}</label>
+                    <input class="form-check-input" type="checkbox" name="nivel_educativo" id="nivel_{{ valor }}" value="{{ valor }}" {% if valor in niveles_seleccionados %}checked{% endif %} {% if niveles_seleccionados|length >= 4 and valor not in niveles_seleccionados %}disabled{% endif %}>
+                    <label class="form-check-label" for="nivel_{{ valor }}">{{ nombre }}</label>
                 </div>
             {% endfor %}
             <div class="col-auto">
-                <button type="submit" class="btn btn-primary btn-sm">Aplicar filtros</button>
-                <a href="?" class="btn btn-secondary btn-sm">Limpiar</a>
+                <button type="submit" class="btn btn-success btn-sm">Aplicar filtros de nivel</button>
             </div>
         </div>
-        HU02: Mensaje si se seleccionan 3 categorías
-        {% if categorias_seleccionadas2|length >= 3 %}
-            <div class="text-danger mt-2">Solo puedes seleccionar hasta 3 categorías.</div>
+        <!-- HU11: Mensaje si se seleccionan 4 niveles -->
+        {% if niveles_seleccionados|length >= 4 %}
+            <div class="text-danger mt-2">Solo puedes seleccionar hasta 4 niveles educativos.</div>
         {% endif %}
-    </form>-->
+    </form>
 
-
-
+    <!-- HU11: Botón para limpiar todos los filtros -->
+    <div class="row mb-4">
+        <div class="col-auto">
+            <a href="?" class="btn btn-secondary btn-sm">Limpiar todos los filtros</a>
+        </div>
+    </div>
 
     <div class="row row-cols-1 row-cols-md-2 g-4">
         {% for herramienta in herramientas %}
@@ -56,7 +58,10 @@
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">{{ herramienta.nombre }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Categoría: {{ herramienta.get_categoria_display }}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            Categoría: {{ herramienta.get_categoria_display }} | 
+                            Nivel: {{ herramienta.get_nivel_educativo_display }}
+                        </h6>
                         <div class="mb-2">
                             <strong>Descripción:</strong>
                             <p class="mb-1">{{ herramienta.descripcion }}</p>
@@ -77,13 +82,13 @@
         {% endfor %}
     </div>
 
-    <!-- HU02: Controles de paginación -->
+    <!-- HU11: Controles de paginación actualizados para incluir ambos filtros -->
     {% if page_obj.has_other_pages %}
         <nav aria-label="Paginación de herramientas" class="mt-4">
             <ul class="pagination justify-content-center">
                 {% if page_obj.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?{% for cat in categorias_seleccionadas %}categoria={{ cat }}&{% endfor %}page={{ page_obj.previous_page_number }}">Anterior</a>
+                        <a class="page-link" href="?{% for cat in categorias_seleccionadas %}categoria={{ cat }}&{% endfor %}{% for nivel in niveles_seleccionados %}nivel_educativo={{ nivel }}&{% endfor %}page={{ page_obj.previous_page_number }}">Anterior</a>
                     </li>
                 {% else %}
                     <li class="page-item disabled"><span class="page-link">Anterior</span></li>
@@ -92,12 +97,12 @@
                     {% if page_obj.number == num %}
                         <li class="page-item active"><span class="page-link">{{ num }}</span></li>
                     {% else %}
-                        <li class="page-item"><a class="page-link" href="?{% for cat in categorias_seleccionadas %}categoria={{ cat }}&{% endfor %}page={{ num }}">{{ num }}</a></li>
+                        <li class="page-item"><a class="page-link" href="?{% for cat in categorias_seleccionadas %}categoria={{ cat }}&{% endfor %}{% for nivel in niveles_seleccionados %}nivel_educativo={{ nivel }}&{% endfor %}page={{ num }}">{{ num }}</a></li>
                     {% endif %}
                 {% endfor %}
                 {% if page_obj.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?{% for cat in categorias_seleccionadas %}categoria={{ cat }}&{% endfor %}page={{ page_obj.next_page_number }}">Siguiente</a>
+                        <a class="page-link" href="?{% for cat in categorias_seleccionadas %}categoria={{ cat }}&{% endfor %}{% for nivel in niveles_seleccionados %}nivel_educativo={{ nivel }}&{% endfor %}page={{ page_obj.next_page_number }}">Siguiente</a>
                     </li>
                 {% else %}
                     <li class="page-item disabled"><span class="page-link">Siguiente</span></li>

@@ -9,12 +9,19 @@ CATEGORIAS_IA = [
     ("codigo", "Código"),
 ]
 
+NIVELES_EDUCATIVOS = [
+    ("basica", "Básica"),
+    ("media", "Media"),
+    ("superior", "Superior"),
+]
+
 # Create your models here.
 
 class HerramientaIA(models.Model):
     nombre = models.CharField(max_length=100)
     # HU02: Cambio a choices para categorías predefinidas
     categoria = models.CharField(max_length=50, choices=CATEGORIAS_IA)
+    nivel_educativo = models.CharField(max_length=50, choices=NIVELES_EDUCATIVOS)
     descripcion = models.TextField()
     diferencias = models.TextField(help_text="Diferencias con otras herramientas similares")
     ejemplos = models.TextField(help_text="Ejemplos prácticos de uso")

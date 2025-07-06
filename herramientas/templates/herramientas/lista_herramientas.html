@@ -25,6 +25,31 @@
         {% endif %}
     </form>
 
+
+     <!--HU02: Filtros de Nivel Educativo
+    <form method="get" class="mb-4">
+        <div class="row g-2 align-items-center">
+            <div class="col-auto fw-bold">Filtrar por Nivel:</div>
+            {% for valor2, nombre2 in categorias_disponibles2 %}
+                <div class="col-auto form-check">
+                    <input class="form-check-input" type="checkbox" name="categoria2" id="cat_{{ valor2 }}" value="{{ valor2 }}" {% if valor in categorias_seleccionadas2 %}checked{% endif %} {% if categorias_seleccionadas2|length >= 5 and valor2 not in categorias_seleccionadas2 %}disabled{% endif %}>
+                    <label class="form-check-label" for="cat_{{ valor2 }}">{{ nombre2 }}</label>
+                </div>
+            {% endfor %}
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary btn-sm">Aplicar filtros</button>
+                <a href="?" class="btn btn-secondary btn-sm">Limpiar</a>
+            </div>
+        </div>
+        HU02: Mensaje si se seleccionan 3 categorías
+        {% if categorias_seleccionadas2|length >= 3 %}
+            <div class="text-danger mt-2">Solo puedes seleccionar hasta 3 categorías.</div>
+        {% endif %}
+    </form>-->
+
+
+
+
     <div class="row row-cols-1 row-cols-md-2 g-4">
         {% for herramienta in herramientas %}
             <div class="col">
@@ -44,9 +69,6 @@
                             <strong>Ejemplos:</strong>
                             <p class="mb-1" style="white-space: pre-line;">{{ herramienta.ejemplos }}</p>
                         </div>
-                    </div>
-                    <div class="card-footer bg-white border-0">
-                        <a href="{% url 'ficha_herramienta' herramienta.id %}" class="btn btn-primary btn-sm">Ver ficha completa</a>
                     </div>
                 </div>
             </div>

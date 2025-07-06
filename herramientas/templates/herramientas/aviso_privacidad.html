@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<style>
+    .aviso-container {
+        max-width: 800px;
+        margin: 50px auto; /* centrado */
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        font-family: 'Segoe UI', sans-serif;
+        line-height: 1.6;
+    }
+
+    .aviso-container h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .aviso-container p {
+        color: #555;
+        text-align: justify;
+    }
+</style>
+
+<div class="aviso-container">
+    <h1>Aviso de Privacidad</h1>
+    <p>
+        Este sitio web se compromete a proteger tu privacidad. No recopilamos datos personales sin tu consentimiento.
+        Toda la información que decidas entregar será usada exclusivamente para mejorar tu experiencia de usuario
+        y nunca será compartida con terceros sin tu autorización explícita.
+    </p>
+    <p>
+        Puedes navegar libremente por el sitio sin entregar datos personales. Cualquier formulario o mecanismo de contacto
+        será transparente respecto al uso de tu información.
+    </p>
+</div>
+{% endblock %}

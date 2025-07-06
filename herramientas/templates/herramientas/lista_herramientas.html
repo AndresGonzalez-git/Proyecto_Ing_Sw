@@ -5,9 +5,10 @@
 {% block contenido %}
     <h1 class="mb-4">Herramientas de IA</h1>
     
-    <!-- HU02: Filtros de categoría -->
+    <!-- HU11: Formulario único que combina ambos filtros -->
     <form method="get" class="mb-4">
-        <div class="row g-2 align-items-center">
+        <!-- HU02: Filtros de categoría -->
+        <div class="row g-2 align-items-center mb-3">
             <div class="col-auto fw-bold">Filtrar por categoría:</div>
             {% for valor, nombre in categorias_disponibles %}
                 <div class="col-auto form-check">
@@ -15,19 +16,14 @@
                     <label class="form-check-label" for="cat_{{ valor }}">{{ nombre }}</label>
                 </div>
             {% endfor %}
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary btn-sm">Aplicar filtros de categoría</button>
-            </div>
         </div>
         <!-- HU02: Mensaje si se seleccionan 5 categorías -->
         {% if categorias_seleccionadas|length >= 5 %}
             <div class="text-danger mt-2">Solo puedes seleccionar hasta 5 categorías.</div>
         {% endif %}
-    </form>
 
-    <!-- HU11: Filtros de nivel educativo -->
-    <form method="get" class="mb-4">
-        <div class="row g-2 align-items-center">
+        <!-- HU11: Filtros de nivel educativo -->
+        <div class="row g-2 align-items-center mb-3">
             <div class="col-auto fw-bold">Filtrar por nivel educativo:</div>
             {% for valor, nombre in niveles_disponibles %}
                 <div class="col-auto form-check">
@@ -35,22 +31,20 @@
                     <label class="form-check-label" for="nivel_{{ valor }}">{{ nombre }}</label>
                 </div>
             {% endfor %}
-            <div class="col-auto">
-                <button type="submit" class="btn btn-success btn-sm">Aplicar filtros de nivel</button>
-            </div>
         </div>
         <!-- HU11: Mensaje si se seleccionan 4 niveles -->
         {% if niveles_seleccionados|length >= 4 %}
             <div class="text-danger mt-2">Solo puedes seleccionar hasta 4 niveles educativos.</div>
         {% endif %}
-    </form>
 
-    <!-- HU11: Botón para limpiar todos los filtros -->
-    <div class="row mb-4">
-        <div class="col-auto">
-            <a href="?" class="btn btn-secondary btn-sm">Limpiar todos los filtros</a>
+        <!-- HU11: Botones de acción para aplicar ambos filtros -->
+        <div class="row mb-4">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary btn-sm">Aplicar filtros combinados</button>
+                <a href="?" class="btn btn-secondary btn-sm">Limpiar todos los filtros</a>
+            </div>
         </div>
-    </div>
+    </form>
 
     <div class="row row-cols-1 row-cols-md-2 g-4">
         {% for herramienta in herramientas %}
